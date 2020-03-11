@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1> Selecciona la UF que quieres visualizar :) </h1>
+<select name="" id="uf-year">
+    <option value="0" disabled selected>Seleccione un año</option>
+    <option value="2020">2020</option>
+    <option value="2019">2019</option>
+    <option value="2018">2018</option>
+    <option value="2017">2017</option>
+    <option value="2016">2016</option>
+    <option value="2015">2015</option>
+    <option value="2014">2014</option>
+    <option value="2013">2013</option>
+</select>
+<select name="ufs" id="uf-month">
+    <option value="0" disabled selected>Seleccione un mes</option>
+</select>
+<button id="btn-show" disabled>Mostrar</button>
+<br>
+
+<script>
+    var meses = ['Seleccione un mes', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    $(function () {
+        $('#uf-year').val(0);
+        $('#uf-year').change(function () {
+            $('#btn-show').attr('disabled', 'disabled')
+            $('#uf-month').empty();
+            var option = '';
+            $.each(meses, function (i, v) {
+                if (i == 0) {
+                    option += '<option value="' + i + '" selected disabled>' + v + '</option>';
+                } else {
+                    if (($('#uf-year').val() == 2020 && i <= 3) || $('#uf-year').val() != 2020) {
+                        option += '<option value="' + i + '">' + v + '</option>';
+                    }
+                }
+            });
+            $('#uf-month').append(option);
+        });
+        $('#uf-month').change(function () {
+            $('#btn-show').removeAttr('disabled')
+        });
+        $('#btn-show').click(function () {
+            var value_month = $('#uf-month').val()
+            var value_year = $('#uf-year').val()
+            window.location.href = "/mostrar_valores/" + value_month + "/" + value_year;
+        });
+    });
+</script>
+{% endblock %}

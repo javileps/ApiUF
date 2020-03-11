@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if count == 0 %} 
+    <p>No hay datos</p>
+{% else %}
+    {% for uf in mes_uf %}
+        <p>Día: {{uf.day}} Mes: {{nombre_meses[uf.month]}} Valor: {{uf.value}} Año: {{uf.year}}</p>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
